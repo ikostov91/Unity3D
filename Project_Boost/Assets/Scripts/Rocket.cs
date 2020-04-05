@@ -6,7 +6,7 @@ using UnityEngine;
 public class Rocket : MonoBehaviour
 {
     // Parameters
-    [SerializeField] private float _mainEngineThrust = 10f;
+    [SerializeField] private float _mainEngineThrust = 1200f;
     [SerializeField] private float _rotationThrust = 180f;
     [SerializeField] private float _sceneLoadDelay = 1f;
     [SerializeField] private float _sceneRestartDelay = 2f;
@@ -15,6 +15,11 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip _mainEngine;
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioClip _winLevelSound;
+
+    // Particle Effects
+    [SerializeField] private ParticleSystem _engineParticles;
+    [SerializeField] private ParticleSystem _successParticles;
+    [SerializeField] private ParticleSystem _deathParticles;
 
     // Components
     private Rigidbody _myRigidBody;
@@ -51,17 +56,23 @@ public class Rocket : MonoBehaviour
         else
         {
             this._myAudioSource.Stop();
+            this._engineParticles.Stop();
         }
     }
 
     private void ApplyThrust()
     {
-        Vector3 thrust = Vector3.up * this._mainEngineThrust;
+        Vector3 thrust = Vector3.up * this._mainEngineThrust * Time.deltaTime;
         this._myRigidBody.AddRelativeForce(thrust);
 
         if (!this._myAudioSource.isPlaying)
         {
             this._myAudioSource.PlayOneShot(this._mainEngine);
+        }
+
+        if (!this._engineParticles.isPlaying)
+        {
+            this._engineParticles.Play();
         }
     }
 
@@ -92,7 +103,6 @@ public class Rocket : MonoBehaviour
         switch (otherCollider.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Friendly");
                 break;
             case "Finish":
                 this.StartSuccessSequence();
@@ -108,6 +118,7 @@ public class Rocket : MonoBehaviour
         this._playerState = PlayerState.Transcending;
         this._myAudioSource.Stop();
         this._myAudioSource.PlayOneShot(this._winLevelSound);
+        this._successParticles.Play();
         this.Invoke("FinishLevel", this._sceneLoadDelay);
     }
 
@@ -116,6 +127,7 @@ public class Rocket : MonoBehaviour
         this._playerState = PlayerState.Dying;
         this._myAudioSource.Stop();
         this._myAudioSource.PlayOneShot(this._deathSound);
+        this._deathParticles.Play();
         this.Invoke("RestartLevel", this._sceneRestartDelay);
     }
 
