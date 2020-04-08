@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -27,6 +25,7 @@ public class Rocket : MonoBehaviour
 
     // State
     private PlayerState _playerState = PlayerState.Alive;
+    private bool _collisionsEnabled = true;
     
     // Start is called before the first frame update
     void Start()
@@ -42,6 +41,11 @@ public class Rocket : MonoBehaviour
         {
             this.RespondToThrustInput();
             this.RespondToRotateInput();
+        }
+
+        if (UnityEngine.Debug.isDebugBuild)
+        {
+            this.RespondToDebugKeys();
         }
     }
 
@@ -95,7 +99,7 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision otherCollider)
     {
-        if (this._playerState != PlayerState.Alive) // ignore collisions
+        if (this._playerState != PlayerState.Alive || !this._collisionsEnabled) // ignore collisions
         {
             return;
         }
@@ -135,8 +139,33 @@ public class Rocket : MonoBehaviour
     {
         FindObjectOfType<LevelLoader>().LoadNextScene();
     }
+
     private void RestartLevel()
     {
         FindObjectOfType<LevelLoader>().RestartScene();
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            int sceneIndex = this.GetNextSceneIndex();
+            SceneManager.LoadScene(sceneIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            this._collisionsEnabled = !this._collisionsEnabled;
+            UnityEngine.Debug.Log("Collisions enabled: " + this._collisionsEnabled);
+        }
+    }
+
+    private int GetNextSceneIndex()
+    {
+        int allScenesCount = SceneManager.sceneCount;
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = (currentSceneIndex + 1 == allScenesCount) ? (currentSceneIndex + 1) : 0;
+
+        return nextSceneIndex;
     }
 }
