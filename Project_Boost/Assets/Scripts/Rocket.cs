@@ -43,7 +43,7 @@ public class Rocket : MonoBehaviour
             this.RespondToRotateInput();
         }
 
-        if (UnityEngine.Debug.isDebugBuild)
+        if (Debug.isDebugBuild)
         {
             this.RespondToDebugKeys();
         }
@@ -59,8 +59,7 @@ public class Rocket : MonoBehaviour
         }
         else
         {
-            this._myAudioSource.Stop();
-            this._engineParticles.Stop();
+            this.StopApplyingThrust();
         }
     }
 
@@ -80,9 +79,15 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    private void StopApplyingThrust()
+    {
+        this._myAudioSource.Stop();
+        this._engineParticles.Stop();
+    }
+
     private void RespondToRotateInput()
     {
-        this._myRigidBody.freezeRotation = true; // take manual control of rotation
+        this._myRigidBody.angularVelocity = Vector3.zero; // remove rotation due to physics
 
         Vector3 rotation = Vector3.forward * this._rotationThrust * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
@@ -93,8 +98,6 @@ public class Rocket : MonoBehaviour
         {
             this.gameObject.transform.Rotate(-1 * rotation);
         }
-
-        this._myRigidBody.freezeRotation = false; // resume Physics control of rotation
     }
 
     private void OnCollisionEnter(Collision otherCollider)
@@ -156,15 +159,15 @@ public class Rocket : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             this._collisionsEnabled = !this._collisionsEnabled;
-            UnityEngine.Debug.Log("Collisions enabled: " + this._collisionsEnabled);
+            Debug.Log("Collisions enabled: " + this._collisionsEnabled);
         }
     }
 
     private int GetNextSceneIndex()
     {
-        int allScenesCount = SceneManager.sceneCount;
+        int allScenesCount = SceneManager.sceneCountInBuildSettings;
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = (currentSceneIndex + 1 == allScenesCount) ? (currentSceneIndex + 1) : 0;
+        int nextSceneIndex = (currentSceneIndex + 1 < allScenesCount) ? (currentSceneIndex + 1) : 0;
 
         return nextSceneIndex;
     }
