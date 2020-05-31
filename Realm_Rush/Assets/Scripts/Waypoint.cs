@@ -1,36 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+    // Cube is 10 * 10 * 10m in size;
     private const int GridSize = 10;
-
     private Vector2Int _gridPosition;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public int GetGridSize()
     {
         return GridSize;
     }
 
-    public Vector2 GetGridPosition()
+    public Vector2Int GetGridPosition()
     {
         Vector2Int position = new Vector2Int(
-            Mathf.RoundToInt(this.transform.position.x / GridSize) * GridSize,
-            Mathf.RoundToInt(this.transform.position.z / GridSize) * GridSize
+            Mathf.RoundToInt(this.transform.position.x / GridSize),
+            Mathf.RoundToInt(this.transform.position.z / GridSize)
         );
         return position;
+    }
+
+    public void SetTopColor(Color color)
+    {
+        MeshRenderer topMeshRenderer = this.transform.Find("Top").GetComponent<MeshRenderer>();
+        topMeshRenderer.material.color = color;
     }
 }
