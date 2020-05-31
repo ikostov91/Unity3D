@@ -6,10 +6,15 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     private Dictionary<Vector2Int, Waypoint> _grid = new Dictionary<Vector2Int, Waypoint>();
-    private Dictionary<Vector2Int, Waypoint> _explored = new Dictionary<Vector2Int, Waypoint>();
-    private Queue<Vector2Int> _positionsToExplore = new Queue<Vector2Int>();
+    private Queue<Waypoint> _waypointsQueue = new Queue<Waypoint>();
 
-    [SerializeField] private Waypoint _startPoint, _endPoint;
+    private Queue<Vector2Int> queue = new Queue<Vector2Int>(); // to remove
+
+    private Dictionary<Vector2Int, Waypoint> _explored = new Dictionary<Vector2Int, Waypoint>();
+
+    [SerializeField] private Waypoint _startWaypoint, _endWaypoint;
+
+    private bool _isRunning = true;
 
     private Vector2Int[] _directions = {
         Vector2Int.up,
@@ -18,18 +23,11 @@ public class Pathfinder : MonoBehaviour
         Vector2Int.left
     };
 
-    // Start is called before the first frame update
     void Start()
     {
         this.LoadBlocks();
         this.ColorStartAndEndBlocks();
-        this.StartCoroutine(this.ExploreNeighbours());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.FindPath();
     }
 
     private void LoadBlocks()
@@ -50,51 +48,71 @@ public class Pathfinder : MonoBehaviour
 
     private void ColorStartAndEndBlocks()
     {
-        this._startPoint.SetTopColor(Color.green);
-        this._endPoint.SetTopColor(Color.red);
+        this._startWaypoint.SetTopColor(Color.green);
+        this._endWaypoint.SetTopColor(Color.red);
     }
 
-    private IEnumerator ExploreNeighbours()
+    private void FindPath()
     {
-        Vector2Int startingPosition = this._startPoint.GetGridPosition();
-        this._positionsToExplore.Enqueue(startingPosition);
+        this._waypointsQueue.Enqueue(this._startWaypoint);
 
-        while (this._positionsToExplore.Count != 0)
+        while (this._waypointsQueue.Count > 0 && this._isRunning)
         {
-            Vector2Int currentPosition = this._positionsToExplore.Dequeue();
-            if (currentPosition == this._endPoint.GetGridPosition())
-            {
-                Debug.Log("Found end position.");
-                break;
-            }
+            Waypoint currentWaypoint = this._waypointsQueue.Dequeue();
+            currentWaypoint.IsExplored = true;
 
-            foreach (Vector2Int direction in this._directions)
-            {
-                Vector2Int positionToExplore = currentPosition + direction;
-                if (!this._grid.ContainsKey(positionToExplore))
-                {
-                    continue;
-                }
-
-                if (!this._explored.ContainsKey(positionToExplore))
-                {
-                    this._positionsToExplore.Enqueue(positionToExplore);
-                }
-            }
-
-            if (currentPosition != this._startPoint.GetGridPosition() &&
-                currentPosition != this._endPoint.GetGridPosition())
-            {
-                Waypoint waypoint = this._grid[currentPosition];
-                waypoint.SetTopColor(Color.blue);
-            }
-
-            if (!this._explored.ContainsKey(currentPosition))
-            {
-                this._explored.Add(currentPosition, this._grid[currentPosition]);
-            }
-
-            yield return new WaitForSeconds(0.5f);
+            this.StopIfEndpointFound(currentWaypoint);
+ 
+            this.ExploreNeighbours(currentWaypoint);
         }
+
+        // todo workout path
+        Debug.Log("Finished pathfiding?");
+    }
+
+    private void StopIfEndpointFound(Waypoint waypoint)
+    {
+        if (waypoint == this._endWaypoint)
+        {
+            Debug.Log("End waypoint found.");
+            this._isRunning = false;
+        }
+    }
+
+    private void ExploreNeighbours(Waypoint centerWaypoint)
+    {
+        if (!this._isRunning)
+        {
+            return;
+        }
+
+        Debug.Log($"Searching from {centerWaypoint.GetGridPosition()}");
+        foreach (Vector2Int direction in this._directions)
+        {
+            Vector2Int neightboutCoordinates = centerWaypoint.GetGridPosition() + direction;
+
+            try
+            {
+                this.QueueNewNeighbour(neightboutCoordinates);
+            }
+            catch (Exception)
+            {
+                // do nothing
+            }
+        }
+    }
+
+    private void QueueNewNeighbour(Vector2Int coordinates)
+    {
+        Waypoint neighbour = this._grid[coordinates];
+
+        if (neighbour.IsExplored)
+        {
+            return;
+        }
+
+        neighbour.SetTopColor(Color.blue);
+        Debug.Log($"Enqueuing nehghbour - {neighbour.GetGridPosition()}");
+        this._waypointsQueue.Enqueue(neighbour);
     }
 }
