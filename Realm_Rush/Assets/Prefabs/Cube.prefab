@@ -79,7 +79,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132654681}
-  m_Text: 0,0
+  m_Text: 1,0
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -155,6 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1b8f960569e4346a4d3d7ee9da6d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exploredColor: {r: 0, g: 0.6405933, b: 1, a: 0}
+  IsExplored: 0
+  ExploredFrom: {fileID: 0}
 --- !u!1 &4627389501447699365
 GameObject:
   m_ObjectHideFlags: 0

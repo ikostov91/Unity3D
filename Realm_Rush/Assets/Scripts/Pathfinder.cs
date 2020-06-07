@@ -8,11 +8,8 @@ public class Pathfinder : MonoBehaviour
     private Dictionary<Vector2Int, Waypoint> _grid = new Dictionary<Vector2Int, Waypoint>();
     private Queue<Waypoint> _waypointsQueue = new Queue<Waypoint>();
 
-    private Queue<Vector2Int> queue = new Queue<Vector2Int>(); // to remove
-
-    private Dictionary<Vector2Int, Waypoint> _explored = new Dictionary<Vector2Int, Waypoint>();
-
     [SerializeField] private Waypoint _startWaypoint, _endWaypoint;
+    private Waypoint _searchCenter;
 
     private bool _isRunning = true;
 
@@ -58,42 +55,42 @@ public class Pathfinder : MonoBehaviour
 
         while (this._waypointsQueue.Count > 0 && this._isRunning)
         {
-            Waypoint currentWaypoint = this._waypointsQueue.Dequeue();
-            currentWaypoint.IsExplored = true;
+            this._searchCenter = this._waypointsQueue.Dequeue();
+            this._searchCenter.IsExplored = true;
 
-            this.StopIfEndpointFound(currentWaypoint);
+            this.StopIfEndpointFound();
  
-            this.ExploreNeighbours(currentWaypoint);
+            this.ExploreNeighbours();
         }
 
         // todo workout path
         Debug.Log("Finished pathfiding?");
     }
 
-    private void StopIfEndpointFound(Waypoint waypoint)
+    private void StopIfEndpointFound()
     {
-        if (waypoint == this._endWaypoint)
+        if (this._searchCenter == this._endWaypoint)
         {
             Debug.Log("End waypoint found.");
             this._isRunning = false;
         }
     }
 
-    private void ExploreNeighbours(Waypoint centerWaypoint)
+    private void ExploreNeighbours()
     {
         if (!this._isRunning)
         {
             return;
         }
 
-        Debug.Log($"Searching from {centerWaypoint.GetGridPosition()}");
+        Debug.Log($"Searching from {this._searchCenter.GetGridPosition()}");
         foreach (Vector2Int direction in this._directions)
         {
-            Vector2Int neightboutCoordinates = centerWaypoint.GetGridPosition() + direction;
+            Vector2Int neightbourCoordinates = this._searchCenter.GetGridPosition() + direction;
 
             try
             {
-                this.QueueNewNeighbour(neightboutCoordinates);
+                this.QueueNewNeighbour(neightbourCoordinates);
             }
             catch (Exception)
             {
@@ -106,12 +103,13 @@ public class Pathfinder : MonoBehaviour
     {
         Waypoint neighbour = this._grid[coordinates];
 
-        if (neighbour.IsExplored)
+        if (neighbour.IsExplored || this._waypointsQueue.Contains(neighbour))
         {
             return;
         }
 
-        neighbour.SetTopColor(Color.blue);
+        // neighbour.SetTopColor(Color.blue);
+        neighbour.ExploredFrom = this._searchCenter;
         Debug.Log($"Enqueuing nehghbour - {neighbour.GetGridPosition()}");
         this._waypointsQueue.Enqueue(neighbour);
     }
