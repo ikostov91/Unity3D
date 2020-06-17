@@ -8,7 +8,15 @@ public class Waypoint : MonoBehaviour
     public bool IsExplored = false;
     public Waypoint ExploredFrom = null;
 
+    private Color blueColor = Color.blue;
+    private Color greyColor = Color.grey;
+
     public int GetGridSize() => GridSize;
+
+    private void Update()
+    {
+        // Can set top color to blue if IsExplored
+    }
 
     public Vector2Int GetGridPosition()
     {

@@ -10,6 +10,7 @@ public class Pathfinder : MonoBehaviour
 
     [SerializeField] private Waypoint _startWaypoint, _endWaypoint;
     private Waypoint _searchCenter;
+    private List<Waypoint> _path = new List<Waypoint>();
 
     private bool _isRunning = true;
 
@@ -20,11 +21,14 @@ public class Pathfinder : MonoBehaviour
         Vector2Int.left
     };
 
-    void Start()
+    public List<Waypoint> GetPath()
     {
         this.LoadBlocks();
         this.ColorStartAndEndBlocks();
-        this.FindPath();
+        this.BreadthFirstSearch();
+        this.CreatePath();
+
+        return this._path;
     }
 
     private void LoadBlocks()
@@ -45,11 +49,12 @@ public class Pathfinder : MonoBehaviour
 
     private void ColorStartAndEndBlocks()
     {
+        // todo consider moving in the waypoint
         this._startWaypoint.SetTopColor(Color.green);
         this._endWaypoint.SetTopColor(Color.red);
     }
 
-    private void FindPath()
+    private void BreadthFirstSearch()
     {
         this._waypointsQueue.Enqueue(this._startWaypoint);
 
@@ -88,13 +93,9 @@ public class Pathfinder : MonoBehaviour
         {
             Vector2Int neightbourCoordinates = this._searchCenter.GetGridPosition() + direction;
 
-            try
+            if (this._grid.ContainsKey(neightbourCoordinates))
             {
                 this.QueueNewNeighbour(neightbourCoordinates);
-            }
-            catch (Exception)
-            {
-                // do nothing
             }
         }
     }
@@ -112,5 +113,40 @@ public class Pathfinder : MonoBehaviour
         neighbour.ExploredFrom = this._searchCenter;
         Debug.Log($"Enqueuing nehghbour - {neighbour.GetGridPosition()}");
         this._waypointsQueue.Enqueue(neighbour);
+    }
+
+    private void CreatePath()
+    {
+        this.AddWaypointsToPath();
+        this.ReversePath();
+    }
+
+    private void AddWaypointsToPath()
+    {
+        this._path.Add(this._endWaypoint);
+
+        Waypoint previous = this._endWaypoint.ExploredFrom;
+        while (previous != this._startWaypoint)
+        {
+            this._path.Add(previous);
+            previous = previous.ExploredFrom;
+        }
+
+        this._path.Add(this._startWaypoint);
+    }
+
+    private void ReversePath()
+    {
+        List<Waypoint> reversedPath = new List<Waypoint>();
+
+        int currentIndex = this._path.Count - 1;
+        for (int i = currentIndex; i >= 0; i--)
+        {
+            reversedPath.Add(this._path[i]);
+        }
+
+        this._path = reversedPath;
+
+        // or use _path.Reverse()
     }
 }
