@@ -50,8 +50,8 @@ public class Pathfinder : MonoBehaviour
     private void ColorStartAndEndBlocks()
     {
         // todo consider moving in the waypoint
-        this._startWaypoint.SetTopColor(Color.green);
-        this._endWaypoint.SetTopColor(Color.red);
+        // this._startWaypoint.SetTopColor(Color.green);
+        // this._endWaypoint.SetTopColor(Color.red);
     }
 
     private void BreadthFirstSearch()
