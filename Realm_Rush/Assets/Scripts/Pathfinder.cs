@@ -39,7 +39,6 @@ public class Pathfinder : MonoBehaviour
             Vector2Int gridPosition = waypoint.GetGridPosition();
             if (this._grid.ContainsKey(gridPosition))
             {
-                Debug.LogError($"Skipping overlapping block - {waypoint}");
                 continue;
             }
 
@@ -67,16 +66,12 @@ public class Pathfinder : MonoBehaviour
  
             this.ExploreNeighbours();
         }
-
-        // todo workout path
-        Debug.Log("Finished pathfiding?");
     }
 
     private void StopIfEndpointFound()
     {
         if (this._searchCenter == this._endWaypoint)
         {
-            Debug.Log("End waypoint found.");
             this._isRunning = false;
         }
     }
@@ -88,7 +83,6 @@ public class Pathfinder : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Searching from {this._searchCenter.GetGridPosition()}");
         foreach (Vector2Int direction in this._directions)
         {
             Vector2Int neightbourCoordinates = this._searchCenter.GetGridPosition() + direction;
@@ -111,7 +105,6 @@ public class Pathfinder : MonoBehaviour
 
         // neighbour.SetTopColor(Color.blue);
         neighbour.ExploredFrom = this._searchCenter;
-        Debug.Log($"Enqueuing nehghbour - {neighbour.GetGridPosition()}");
         this._waypointsQueue.Enqueue(neighbour);
     }
 
