@@ -3727,7 +3727,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minKillSpeed: 0
+    minKillSpeed: 1000
     maxKillSpeed: 10000
     radiusScale: 1
     collidesWith:
@@ -4709,7 +4709,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7d9b02a3ac0ecf646b101df8237aab78, type: 2}
+  - {fileID: 0}
   - {fileID: 2100000, guid: 7c2bc39293ae88f4bb7f4b8b791a7b49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -111,43 +111,29 @@ public class Pathfinder : MonoBehaviour
             return;
         }
 
-        // neighbour.SetTopColor(Color.blue);
         neighbour.ExploredFrom = this._searchCenter;
         this._waypointsQueue.Enqueue(neighbour);
     }
 
     private void CreatePath()
     {
-        this.AddWaypointsToPath();
-        this.ReversePath();
-    }
-
-    private void AddWaypointsToPath()
-    {
-        this._path.Add(this._endWaypoint);
+        this.SetAsPath(this._endWaypoint);
 
         Waypoint previous = this._endWaypoint.ExploredFrom;
         while (previous != this._startWaypoint)
         {
-            this._path.Add(previous);
+            this.SetAsPath(previous);
             previous = previous.ExploredFrom;
         }
 
-        this._path.Add(this._startWaypoint);
+        this.SetAsPath(this._startWaypoint);
+
+        this._path.Reverse();
     }
 
-    private void ReversePath()
+    private void SetAsPath(Waypoint waypoint)
     {
-        List<Waypoint> reversedPath = new List<Waypoint>();
-
-        int currentIndex = this._path.Count - 1;
-        for (int i = currentIndex; i >= 0; i--)
-        {
-            reversedPath.Add(this._path[i]);
-        }
-
-        this._path = reversedPath;
-
-        // or use _path.Reverse()
+        this._path.Add(waypoint);
+        waypoint.IsPlaceable = false;
     }
 }

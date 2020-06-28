@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectToMove: {fileID: 5635506358247496888}
-  _targetEnemy: {fileID: 0}
-  _weapon: {fileID: 5637316433322560425}
   _attackRange: 25
   _projectileParticle: {fileID: 5637316433322560425}
 --- !u!1001 &4837301709063332324

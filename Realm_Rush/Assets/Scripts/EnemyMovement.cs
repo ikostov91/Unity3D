@@ -5,11 +5,13 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _enemyMovementDelay = 1f;
+    [SerializeField] private List<Waypoint> _path; // todo remove
+
     void Start()
     {
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
-        List<Waypoint> path = pathfinder.GetPath();
-        this.StartCoroutine(this.FollowPath(path));
+        this._path = pathfinder.GetPath();
+        this.StartCoroutine(this.FollowPath(this._path));
     }
 
     private IEnumerator FollowPath(List<Waypoint> path)
