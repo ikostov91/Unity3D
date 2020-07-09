@@ -12,9 +12,6 @@ public class Waypoint : MonoBehaviour
     private Color blueColor = Color.blue;
     private Color greyColor = Color.grey;
 
-    [SerializeField] private Tower _towerPrefab;
-    // [SerializeField] private Transform _towersContainer;
-
     public int GetGridSize() => GridSize;
 
     public Vector2Int GetGridPosition()
@@ -32,13 +29,7 @@ public class Waypoint : MonoBehaviour
         {
             if (this.IsPlaceable)
             {
-                Instantiate(
-                    this._towerPrefab,
-                    this.transform.position,
-                    Quaternion.identity
-                );
-                this.IsPlaceable = false;
-                // this._towerPrefab.transform.parent = this._towersContainer;
+                FindObjectOfType<TowerFactory>().AddTower(this);
             }
         }
     }

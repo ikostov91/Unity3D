@@ -5,13 +5,12 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _enemyMovementDelay = 1f;
-    [SerializeField] private List<Waypoint> _path; // todo remove
 
     void Start()
     {
         Pathfinder pathfinder = FindObjectOfType<Pathfinder>();
-        this._path = pathfinder.GetPath();
-        this.StartCoroutine(this.FollowPath(this._path));
+        List<Waypoint> path = pathfinder.GetPath();
+        this.StartCoroutine(this.FollowPath(path));
     }
 
     private IEnumerator FollowPath(List<Waypoint> path)
@@ -21,5 +20,7 @@ public class EnemyMovement : MonoBehaviour
             this.transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(this._enemyMovementDelay);
         }
+
+        Destroy(this.gameObject);
     }
 }
