@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyMovementDelay: 1
-  _path: []
+  _transformParent: {fileID: 0}
 --- !u!114 &604296750743341689
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _secondsBetweenSpawns = 3f;
     [SerializeField] private EnemyMovement _enemyPrefab;
     [SerializeField] private Transform _spawnLocation;
+    [SerializeField] private Transform _enemyParerntTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,8 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(this._enemyPrefab, this._spawnLocation.position, Quaternion.identity);
+            EnemyMovement newEnemy = Instantiate(this._enemyPrefab, this._spawnLocation.position, Quaternion.identity);
+            newEnemy.transform.parent = this._enemyParerntTransform;
             yield return new WaitForSeconds(this._secondsBetweenSpawns);
         }
     }

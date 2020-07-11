@@ -573,6 +573,7 @@ MonoBehaviour:
   _towerPrefab: {fileID: 5637316433582258393, guid: ab06d7aa9494f884988503165711fbcd,
     type: 3}
   _towerLimit: 5
+  _towerParentTransform: {fileID: 1944238194}
 --- !u!1001 &209530299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1587,18 +1588,6 @@ Light:
     type: 3}
   m_PrefabInstance: {fileID: 7428263019454362863}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &711689726 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8448213229485480646, guid: 04f81ff9814844ccfa08226f8d46a3f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1547189483}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5fbb395c3d8cb74bbf35f26d48806e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &735900986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3097,6 +3086,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8448213229485480646, guid: 04f81ff9814844ccfa08226f8d46a3f4,
+        type: 3}
+      propertyPath: _transformParent
+      value: 
+      objectReference: {fileID: 1874930516}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04f81ff9814844ccfa08226f8d46a3f4, type: 3}
 --- !u!1001 &1574133850
@@ -3707,8 +3701,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsBetweenSpawns: 3
-  _enemyPrefab: {fileID: 711689726}
+  _enemyPrefab: {fileID: 8448213229485480646, guid: 04f81ff9814844ccfa08226f8d46a3f4,
+    type: 3}
   _spawnLocation: {fileID: 230319842}
+  _enemyParerntTransform: {fileID: 1874930516}
 --- !u!1001 &1898370600
 PrefabInstance:
   m_ObjectHideFlags: 0

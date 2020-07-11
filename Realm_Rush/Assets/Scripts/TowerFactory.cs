@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class TowerFactory : MonoBehaviour
 {
     [SerializeField] private Tower _towerPrefab;
     [SerializeField] private int _towerLimit = 5;
+    [SerializeField] private Transform _towerParentTransform;
 
     private Queue<Tower> _towersQueue = new Queue<Tower>();
     
     public void AddTower(Waypoint baseWaypoint)
     {
         int towersCount = this._towersQueue.Count;
-        if (towersCount < _towerLimit)
+        if (towersCount < this._towerLimit)
         {
             this.InstantiateNewTower(baseWaypoint);
         }
         else
         {
-            MoveExistingTower(baseWaypoint);
+            this.MoveExistingTower(baseWaypoint);
         }
     }
 
@@ -30,23 +30,23 @@ public class TowerFactory : MonoBehaviour
             baseWaypoint.transform.position,
             Quaternion.identity
         );
-        
+        newTower.BaseWaypoint = baseWaypoint;
         baseWaypoint.IsPlaceable = false;
-
-        // set the basewaypoint
+        newTower.transform.parent = this._towerParentTransform.transform;
 
         this._towersQueue.Enqueue(newTower);
     }
 
-    private void MoveExistingTower(Waypoint baseWaypoint)
+    private void MoveExistingTower(Waypoint newBaseWaypoint)
     {
         Tower tower = this._towersQueue.Dequeue();
 
-        // set placeable flags
+        tower.BaseWaypoint.IsPlaceable = true;
+        tower.BaseWaypoint = newBaseWaypoint;
+        newBaseWaypoint.IsPlaceable = false;
 
-        // set the basewaypoint
+        tower.transform.position = newBaseWaypoint.transform.position;
 
-        // put the old tower on top of the queue
         this._towersQueue.Enqueue(tower);
     }
 }
