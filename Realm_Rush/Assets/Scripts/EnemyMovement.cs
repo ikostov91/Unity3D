@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float _enemyMovementDelay = 1f;
+    [SerializeField] private float _enemyMovementPeriod = 1f;
+    [SerializeField] private ParticleSystem _goalParticle;
 
     void Start()
     {
@@ -18,9 +19,19 @@ public class EnemyMovement : MonoBehaviour
         foreach (Waypoint waypoint in path)
         {
             this.transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(this._enemyMovementDelay);
+            yield return new WaitForSeconds(this._enemyMovementPeriod);
         }
 
+        this.SelfDestruct();
+    }
+
+    private void SelfDestruct()
+    {
+        var goalVfx = Instantiate(this._goalParticle, this.transform.position, Quaternion.identity);
+        goalVfx.Play();
+
+        float destroyDelay = goalVfx.main.duration;
+        Destroy(goalVfx.gameObject, destroyDelay);
         Destroy(this.gameObject);
     }
 }
