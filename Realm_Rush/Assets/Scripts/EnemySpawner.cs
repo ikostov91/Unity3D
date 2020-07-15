@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform _spawnLocation;
     [SerializeField] private Transform _enemyParerntTransform;
     [SerializeField] private Text _spawnedEnemies;
+    [SerializeField] private AudioClip _spawnedEnemySfx;
 
     private int _score = 0;
 
@@ -25,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             this.AddScore();
+            GetComponent<AudioSource>().PlayOneShot(this._spawnedEnemySfx);
             EnemyMovement newEnemy = Instantiate(this._enemyPrefab, this._spawnLocation.position, Quaternion.identity);
             newEnemy.transform.parent = this._enemyParerntTransform;
             yield return new WaitForSeconds(this._secondsBetweenSpawns);
