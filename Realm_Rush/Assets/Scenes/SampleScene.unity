@@ -5019,6 +5019,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1947213901, guid: 5a9c2191c90a80c438f86c500b8a2651, type: 3}
+      propertyPath: antialiasingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947213901, guid: 5a9c2191c90a80c438f86c500b8a2651, type: 3}
+      propertyPath: stopNaNPropagation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8427968688924233202, guid: 5a9c2191c90a80c438f86c500b8a2651,
         type: 3}
       propertyPath: m_LocalPosition.x
