@@ -332,6 +332,25 @@ Transform:
   m_Father: {fileID: 400000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &363403518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744974521013243881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24928b67425bc6d4cac8c375943fbfd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoil: 0
+  _maxRecoil_x: -20
+  _maxRecoil_y: 20
+  _maxRecoil_z: 20
+  _recoilSpeed: 2
+  _maxTrans_x: 1
+  _maxTrans_z: -1
 --- !u!114 &1867968826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +367,8 @@ MonoBehaviour:
   _range: 100
   _damage: 17
   _muzzleFlash: {fileID: 8738996524296930015}
+  _hitEffect: {fileID: 8222039946408992153, guid: 00d1f5538b47e024f8eaff019162b80d,
+    type: 3}
 --- !u!1001 &6427366120169395311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -358,17 +379,17 @@ PrefabInstance:
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.137
+      value: 0.13699998
       objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.124
+      value: -0.122014165
       objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.367
+      value: 0.3722477
       objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
