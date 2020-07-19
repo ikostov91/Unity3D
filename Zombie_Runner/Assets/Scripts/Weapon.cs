@@ -1,15 +1,22 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Camera _fpsCamera;
+    [SerializeField] private ParticleSystem _muzzleFlash;
+    [SerializeField] private GameObject _hitEffect;
+
     [SerializeField] private float _range = 100f;
     [SerializeField] private float _damage = 17f;
     [SerializeField] private float _shootingDelay = 0.15f;
-    [SerializeField] private ParticleSystem _muzzleFlash;
-    [SerializeField] private GameObject _hitEffect;
+
+    [SerializeField] private float _recoil = 0.0f;
+
+    [SerializeField] private float _maxRecoil_x = -20f;
+    [SerializeField] private float _recoilSpeed = 10f;
+    [SerializeField] private float _maxTrans_x = 1.0f;
+    [SerializeField] private float _maxTrans_z = -1.0f;
 
     private Coroutine _shootingCoroutine;
 
@@ -45,9 +52,40 @@ public class Weapon : MonoBehaviour
 
     private void AddWeaponRecoil()
     {
-        // Visual only for now
-        var recoilObject = GetComponent<Recoil>();
-        recoilObject.recoil += 0.1f;
+        this._recoil += 0.1f;
+
+        if (this._recoil > 0f)
+        {
+            var maxRecoil = Quaternion.Euler(
+                Random.Range(this._fpsCamera.transform.rotation.x, this._maxRecoil_x),
+                this._fpsCamera.transform.rotation.y,
+                this._fpsCamera.transform.rotation.z
+            );
+
+            this._fpsCamera.transform.rotation = Quaternion.Slerp(
+                this._fpsCamera.transform.rotation,
+                maxRecoil,
+                Time.deltaTime * this._recoilSpeed
+            );
+
+            this._recoil -= Time.deltaTime;
+        }
+        else
+        {
+            this._recoil = 0f;
+
+            var minRecoil = Quaternion.Euler(
+                this._fpsCamera.transform.rotation.x,
+                this._fpsCamera.transform.rotation.y,
+                this._fpsCamera.transform.rotation.z
+            );
+
+            this._fpsCamera.transform.rotation = Quaternion.Slerp(
+                this._fpsCamera.transform.rotation,
+                minRecoil,
+                Time.deltaTime * this._recoilSpeed / 2
+            );
+        }
     }
 
     private void ProcessRayCast()
