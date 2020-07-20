@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using Constants;
 
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _chaseRange = 5f;
+    [SerializeField] private float _turnSpeed = 5f;
 
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
@@ -43,6 +45,8 @@ public class EnemyAI : MonoBehaviour
 
     private void EngageTarget()
     {
+        this.FaceTarget();
+
         if (this._distanceToTarget >= this._navMeshAgent.stoppingDistance && this._isPlayerVisible)
         {
             this.ChaseTarget();
@@ -56,14 +60,21 @@ public class EnemyAI : MonoBehaviour
 
     private void AttackTarget()
     {
-        this._animator.SetBool("Attack", true);
+        this._animator.SetBool(AnimationConstants.Attack, true);
     }
 
     private void ChaseTarget()
     {
-        this._animator.SetBool("Attack", false);
-        this._animator.SetTrigger("Move");
+        this._animator.SetBool(AnimationConstants.Attack, false);
+        this._animator.SetTrigger(AnimationConstants.Move);
         this._navMeshAgent.SetDestination(this._target.position);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (this._target.transform.position - this.transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, Time.deltaTime * this._turnSpeed);
     }
 
     private void CheckIfPlayerIsVisible()
