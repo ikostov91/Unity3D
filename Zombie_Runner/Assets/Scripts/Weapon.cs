@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float _recoil = 0.0f;
 
     [SerializeField] private float _maxRecoil_x = -20f;
-    [SerializeField] private float _recoilSpeed = 10f;
+    [SerializeField] private float _recoilSpeed = 7f;
     [SerializeField] private float _maxTrans_x = 1.0f;
     [SerializeField] private float _maxTrans_z = -1.0f;
 
@@ -31,6 +31,8 @@ public class Weapon : MonoBehaviour
         {
             this.StopCoroutine(this._shootingCoroutine);
         }
+
+        this.VisualizeWeaponRecoil();
     }
 
     private IEnumerator Shoot()
@@ -38,11 +40,16 @@ public class Weapon : MonoBehaviour
         while (true)
         {
             this.PlayMuzzleFlash();
-            this.AddWeaponRecoil();
+            this.AddRecoilAfterShot();
             this.ProcessRayCast();
 
             yield return new WaitForSeconds(this._shootingDelay);
         }
+    }
+
+    private void AddRecoilAfterShot()
+    {
+        this._recoil += 0.1f;
     }
 
     private void PlayMuzzleFlash()
@@ -50,20 +57,18 @@ public class Weapon : MonoBehaviour
         this._muzzleFlash.Play();
     }
 
-    private void AddWeaponRecoil()
+    private void VisualizeWeaponRecoil()
     {
-        this._recoil += 0.1f;
-
-        if (this._recoil > 0f)
+        if (this._recoil > 0.0f)
         {
             var maxRecoil = Quaternion.Euler(
-                Random.Range(this._fpsCamera.transform.rotation.x, this._maxRecoil_x),
-                this._fpsCamera.transform.rotation.y,
-                this._fpsCamera.transform.rotation.z
+               Random.Range(this._fpsCamera.transform.localRotation.x, this._maxRecoil_x),
+                this._fpsCamera.transform.localRotation.y,
+                this._fpsCamera.transform.localRotation.z
             );
 
-            this._fpsCamera.transform.rotation = Quaternion.Slerp(
-                this._fpsCamera.transform.rotation,
+            this._fpsCamera.transform.localRotation = Quaternion.Slerp(
+                this._fpsCamera.transform.localRotation,
                 maxRecoil,
                 Time.deltaTime * this._recoilSpeed
             );
@@ -75,13 +80,13 @@ public class Weapon : MonoBehaviour
             this._recoil = 0f;
 
             var minRecoil = Quaternion.Euler(
-                this._fpsCamera.transform.rotation.x,
-                this._fpsCamera.transform.rotation.y,
-                this._fpsCamera.transform.rotation.z
+                this._fpsCamera.transform.localRotation.x,
+                this._fpsCamera.transform.localRotation.y,
+                this._fpsCamera.transform.localRotation.z
             );
 
-            this._fpsCamera.transform.rotation = Quaternion.Slerp(
-                this._fpsCamera.transform.rotation,
+            this._fpsCamera.transform.localRotation = Quaternion.Slerp(
+                this._fpsCamera.transform.localRotation,
                 minRecoil,
                 Time.deltaTime * this._recoilSpeed / 2
             );

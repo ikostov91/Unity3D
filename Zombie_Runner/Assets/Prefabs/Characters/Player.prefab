@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e89e37bd965bc045a294ce8a56bdcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitPoints: 100
 --- !u!1 &493432460842507132
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +357,10 @@ PrefabInstance:
       propertyPath: _fpsCamera
       value: 
       objectReference: {fileID: 2000000}
+    - target: {fileID: 1867968826, guid: ada2587319194f542957a8c2ae277cb9, type: 3}
+      propertyPath: _recoilSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
       propertyPath: m_LocalPosition.x
