@@ -43,6 +43,11 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void OnDamageTaken()
+    {
+        this._isEnemyProvoked = true;
+    }
+
     private void EngageTarget()
     {
         this.FaceTarget();
