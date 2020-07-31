@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Camera _fpsCamera;
     [SerializeField] private ParticleSystem _muzzleFlash;
     [SerializeField] private GameObject _hitEffect;
+    [SerializeField] private Ammo _ammoSlot;
 
     [SerializeField] private float _range = 100f;
     [SerializeField] private float _damage = 17f;
@@ -22,12 +23,12 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && this._ammoSlot.GetCurrentAmmo() > 0)
         {
             this._shootingCoroutine = this.StartCoroutine(this.Shoot());
         }
 
-        if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Fire1") || this._ammoSlot.GetCurrentAmmo() <= 0)
         {
             this.StopCoroutine(this._shootingCoroutine);
         }
@@ -42,6 +43,7 @@ public class Weapon : MonoBehaviour
             this.PlayMuzzleFlash();
             this.AddRecoilAfterShot();
             this.ProcessRayCast();
+            this._ammoSlot.ReduceCurrentAmmo();
 
             yield return new WaitForSeconds(this._shootingDelay);
         }
