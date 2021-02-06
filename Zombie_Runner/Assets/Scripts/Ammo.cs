@@ -1,10 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
     [SerializeField] private int _ammoAmount = 10;
+
+    [Serializable]
+    private class AmmoSlot
+    {
+        public AmmoType _ammoType;
+        public int _ammoAmount;
+    }
 
     private void Update()
     {

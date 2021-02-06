@@ -11,14 +11,9 @@ public class WeaponZoom : MonoBehaviour
     private const float ZOOM_IN_SENSITIVITY = 0.5f;
 
     [SerializeField] private Camera _fpsCamera;
-    private RigidbodyFirstPersonController _fpsController;
+    [SerializeField] private RigidbodyFirstPersonController _fpsController;
 
     private bool _zoomedInToggle = false;
-
-    private void Start()
-    {
-        this._fpsController = GetComponent<RigidbodyFirstPersonController>();
-    }
 
     private void Update()
     {

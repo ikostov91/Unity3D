@@ -19,18 +19,18 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float _maxTrans_x = 1.0f;
     [SerializeField] private float _maxTrans_z = -1.0f;
 
-    private Coroutine _shootingCoroutine;
+    private bool _canShoot = true;
+
+    private void OnEnable()
+    {
+        this._canShoot = true;
+    }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && this._ammoSlot.GetCurrentAmmo() > 0)
+        if (Input.GetMouseButton(0) && this._ammoSlot.GetCurrentAmmo() > 0 && this._canShoot)
         {
-            this._shootingCoroutine = this.StartCoroutine(this.Shoot());
-        }
-
-        if (Input.GetButtonUp("Fire1") || this._ammoSlot.GetCurrentAmmo() <= 0)
-        {
-            this.StopCoroutine(this._shootingCoroutine);
+            this.StartCoroutine(this.Shoot());
         }
 
         this.VisualizeWeaponRecoil();
@@ -38,15 +38,15 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        while (true)
-        {
-            this.PlayMuzzleFlash();
-            this.AddRecoilAfterShot();
-            this.ProcessRayCast();
-            this._ammoSlot.ReduceCurrentAmmo();
+        this._canShoot = false;
 
-            yield return new WaitForSeconds(this._shootingDelay);
-        }
+        this.PlayMuzzleFlash();
+        this.AddRecoilAfterShot();
+        this.ProcessRayCast();
+        this._ammoSlot.ReduceCurrentAmmo();
+        yield return new WaitForSeconds(this._shootingDelay);
+
+        this._canShoot = true;
     }
 
     private void AddRecoilAfterShot()
