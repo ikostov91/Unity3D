@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
-    [SerializeField] private int _ammoAmount = 10;
+    [SerializeField] AmmoSlot[] _ammoSlots;
 
     [Serializable]
     private class AmmoSlot
@@ -14,26 +14,31 @@ public class Ammo : MonoBehaviour
         public int _ammoAmount;
     }
 
-    private void Update()
+    public int GetCurrentAmmo(AmmoType ammoType)
     {
-        this.ProcessWeaponReload();
+        return this.GetAmmoSlot(ammoType)._ammoAmount;
     }
 
-    private void ProcessWeaponReload()
+    public void ReduceCurrentAmmo(AmmoType ammoType)
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        this.GetAmmoSlot(ammoType)._ammoAmount -= 1;
+    }
+
+    public void IncreaseCurrentAmmo(AmmoType ammoType, int ammoAmmount)
+    {
+        this.GetAmmoSlot(ammoType)._ammoAmount += ammoAmmount;
+    }
+
+    private AmmoSlot GetAmmoSlot(AmmoType ammoType)
+    {
+        foreach (AmmoSlot slot in this._ammoSlots)
         {
-            this._ammoAmount += 10;
+            if (slot._ammoType == ammoType)
+            {
+                return slot;
+            }
         }
-    }
 
-    public int GetCurrentAmmo()
-    {
-        return this._ammoAmount;
+        return null;
     }
-
-    public void ReduceCurrentAmmo()
-    {
-        this._ammoAmount -= 1;
-    }    
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float _enemyMovementPeriod = 1f;
+    [SerializeField] [Range(0f, 5f)] float _enemyMovementSpeed = 1f;
     [SerializeField] private ParticleSystem _goalParticle;
 
     void Start()
@@ -18,8 +18,16 @@ public class EnemyMovement : MonoBehaviour
     {
         foreach (Waypoint waypoint in path)
         {
-            this.transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(this._enemyMovementPeriod);
+            Vector3 startPosition = this.transform.position;
+            Vector3 endPosition = waypoint.transform.position;
+            float travelPercent = Time.deltaTime;
+
+            while (travelPercent < 1f)
+            {
+                travelPercent += Time.deltaTime * this._enemyMovementSpeed;
+                this.transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+                yield return new WaitForEndOfFrame();
+            }
         }
 
         this.SelfDestruct();

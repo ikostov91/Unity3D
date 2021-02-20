@@ -13,15 +13,23 @@ public class EnemyAI : MonoBehaviour
     private float _distanceToTarget = Mathf.Infinity;
     private bool _isPlayerVisible = true;
     private bool _isEnemyProvoked = false;
+    private EnemyHealth _health;
 
     void Start()
     {
         this._navMeshAgent = GetComponent<NavMeshAgent>();
         this._animator = GetComponent<Animator>();
+        this._health = GetComponent<EnemyHealth>();
     }
 
     void Update()
     {
+        if (this._health.IsDead)
+        {
+            this.enabled = false;
+            this._navMeshAgent.enabled = false;
+        }
+
         this.FollowPlayerIfInRange();
     }
 

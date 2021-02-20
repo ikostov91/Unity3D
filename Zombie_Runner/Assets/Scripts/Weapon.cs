@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private AmmoType _ammoType;
+
     [SerializeField] private Camera _fpsCamera;
     [SerializeField] private ParticleSystem _muzzleFlash;
     [SerializeField] private GameObject _hitEffect;
@@ -28,7 +30,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0) && this._ammoSlot.GetCurrentAmmo() > 0 && this._canShoot)
+        if (Input.GetMouseButton(0) && this._ammoSlot.GetCurrentAmmo(this._ammoType) > 0 && this._canShoot)
         {
             this.StartCoroutine(this.Shoot());
         }
@@ -43,7 +45,7 @@ public class Weapon : MonoBehaviour
         this.PlayMuzzleFlash();
         this.AddRecoilAfterShot();
         this.ProcessRayCast();
-        this._ammoSlot.ReduceCurrentAmmo();
+        this._ammoSlot.ReduceCurrentAmmo(this._ammoType);
         yield return new WaitForSeconds(this._shootingDelay);
 
         this._canShoot = true;

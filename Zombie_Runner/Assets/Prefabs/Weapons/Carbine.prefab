@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c06b295b4ee24142a4caeb75fe31159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ammoType: 2
   _fpsCamera: {fileID: 0}
   _muzzleFlash: {fileID: 2338969539628521136}
   _hitEffect: {fileID: 8222039946408992153, guid: 00d1f5538b47e024f8eaff019162b80d,

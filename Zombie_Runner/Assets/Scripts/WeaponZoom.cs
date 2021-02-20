@@ -32,17 +32,32 @@ public class WeaponZoom : MonoBehaviour
     {
         if (this._zoomedInToggle)
         {
-            this._fpsCamera.fieldOfView = DEFAULT_FOV;
-            this._fpsController.mouseLook.XSensitivity = ZOOM_OUT_SENSITIVITY;
-            this._fpsController.mouseLook.YSensitivity = ZOOM_OUT_SENSITIVITY;
-            this._zoomedInToggle = false;
+            this.ZoomOut();
         }
         else
         {
-            this._fpsCamera.fieldOfView = ZOOMED_FOV;
-            this._fpsController.mouseLook.XSensitivity = ZOOM_IN_SENSITIVITY;
-            this._fpsController.mouseLook.YSensitivity = ZOOM_IN_SENSITIVITY;
-            this._zoomedInToggle = true;
+            this.ZoomIn();
         }
+    }
+
+    private void OnDisable()
+    {
+        this.ZoomOut();
+    }
+
+    private void ZoomOut()
+    {
+        this._fpsCamera.fieldOfView = DEFAULT_FOV;
+        this._fpsController.mouseLook.XSensitivity = ZOOM_OUT_SENSITIVITY;
+        this._fpsController.mouseLook.YSensitivity = ZOOM_OUT_SENSITIVITY;
+        this._zoomedInToggle = false;
+    }
+
+    private void ZoomIn()
+    {
+        this._fpsCamera.fieldOfView = ZOOMED_FOV;
+        this._fpsController.mouseLook.XSensitivity = ZOOM_IN_SENSITIVITY;
+        this._fpsController.mouseLook.YSensitivity = ZOOM_IN_SENSITIVITY;
+        this._zoomedInToggle = true;
     }
 }

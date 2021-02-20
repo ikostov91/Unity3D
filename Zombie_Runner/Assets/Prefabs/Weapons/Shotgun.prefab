@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c06b295b4ee24142a4caeb75fe31159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ammoType: 1
   _fpsCamera: {fileID: 0}
   _muzzleFlash: {fileID: 4859855092406893769, guid: e79c2517821a10149b6d05f0eaef1b31,
     type: 3}

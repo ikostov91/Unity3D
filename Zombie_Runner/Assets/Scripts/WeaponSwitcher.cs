@@ -49,7 +49,7 @@ public class WeaponSwitcher : MonoBehaviour
         if (scroll != 0)
         {
             float sign = Mathf.Sign(scroll);
-            this._currentWeapon += (int)(-1 * sign);
+            this._currentWeapon += (int)(1 * sign);
             if (this._currentWeapon >= this._weapons.Length)
             {
                 this._currentWeapon = 0;
