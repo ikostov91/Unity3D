@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: _muzzleFlash
       value: 
       objectReference: {fileID: 2004220200434120373}
+    - target: {fileID: 1867968826, guid: 0c1bd72f8dfc29f47aea312b1fcb1062, type: 3}
+      propertyPath: _shootingDelay
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: 0c1bd72f8dfc29f47aea312b1fcb1062,
         type: 3}
       propertyPath: m_RootOrder
@@ -532,7 +536,7 @@ PrefabInstance:
       objectReference: {fileID: 2000000}
     - target: {fileID: 1867968826, guid: 7e64ca821b9ad194a843ae920fe35158, type: 3}
       propertyPath: _shootingDelay
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: 7e64ca821b9ad194a843ae920fe35158,
         type: 3}
@@ -632,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 2000000}
     - target: {fileID: 1867968826, guid: ada2587319194f542957a8c2ae277cb9, type: 3}
       propertyPath: _shootingDelay
-      value: 0.8
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 2337074158996965286, guid: ada2587319194f542957a8c2ae277cb9,
         type: 3}
