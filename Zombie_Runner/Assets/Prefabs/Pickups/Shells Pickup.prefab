@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &902838894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888304847805634353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cb371fbdf70f249837d9109b9dc484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ammoAmmount: 5
+  _ammoType: 1
 --- !u!1001 &5192815235222277192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,6 +21,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2995651045510223434, guid: 8daec4aba3341ed478a971dd92e7c59c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4386029285435070294, guid: 8daec4aba3341ed478a971dd92e7c59c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730062728679152503, guid: 8daec4aba3341ed478a971dd92e7c59c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831680841493833833, guid: 8daec4aba3341ed478a971dd92e7c59c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216411163544761108, guid: 8daec4aba3341ed478a971dd92e7c59c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9072111509127781240, guid: 8daec4aba3341ed478a971dd92e7c59c,
         type: 3}
       propertyPath: m_RootOrder
@@ -69,6 +108,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8daec4aba3341ed478a971dd92e7c59c, type: 3}
+--- !u!1 &3888304847805634353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9072111509127781241, guid: 8daec4aba3341ed478a971dd92e7c59c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5192815235222277192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3888304847805634352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9072111509127781240, guid: 8daec4aba3341ed478a971dd92e7c59c,
