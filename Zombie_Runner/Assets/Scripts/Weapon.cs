@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -9,6 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private ParticleSystem _muzzleFlash;
     [SerializeField] private GameObject _hitEffect;
     [SerializeField] private Ammo _ammoSlot;
+    [SerializeField] private TextMeshProUGUI _ammoText;
 
     [SerializeField] private float _range = 100f;
     [SerializeField] private float _damage = 17f;
@@ -20,6 +22,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float _recoilSpeed = 7f;
     [SerializeField] private float _maxTrans_x = 1.0f;
     [SerializeField] private float _maxTrans_z = -1.0f;
+
+    [SerializeField] private AudioClip _fireSound;
 
     private bool _canShoot = true;
 
@@ -36,12 +40,17 @@ public class Weapon : MonoBehaviour
         }
 
         this.VisualizeWeaponRecoil();
+        this.DisplayAmmo();
     }
 
     private IEnumerator Shoot()
     {
         this._canShoot = false;
 
+        if (this._fireSound != null)
+        {
+            AudioSource.PlayClipAtPoint(this._fireSound, this.transform.position);
+        }
         this.PlayMuzzleFlash();
         this.AddRecoilAfterShot();
         this.ProcessRayCast();
@@ -95,6 +104,11 @@ public class Weapon : MonoBehaviour
                 Time.deltaTime * this._recoilSpeed / 2
             );
         }
+    }
+
+    private void DisplayAmmo()
+    {
+        this._ammoText.text = this._ammoSlot.GetCurrentAmmo(this._ammoType).ToString();
     }
 
     private void ProcessRayCast()

@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 4289927545011041213}
   - component: {fileID: 26953320}
   - component: {fileID: 3487120574894132073}
+  - component: {fileID: 690558681}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -350,6 +351,20 @@ MonoBehaviour:
     _ammoAmount: 20
   - _ammoType: 2
     _ammoAmount: 8
+--- !u!114 &690558681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a0e1d6524a4934a824e59db655031e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageCanvas: {fileID: 0}
+  _onTime: 0.3
 --- !u!1 &493432460842507132
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +431,10 @@ PrefabInstance:
       propertyPath: _ammoSlot
       value: 
       objectReference: {fileID: 3487120574894132073}
+    - target: {fileID: 1867968826, guid: 0c1bd72f8dfc29f47aea312b1fcb1062, type: 3}
+      propertyPath: _fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 391e9a8a38dca1f4781bb240c42a75fb, type: 3}
     - target: {fileID: 1867968826, guid: 0c1bd72f8dfc29f47aea312b1fcb1062, type: 3}
       propertyPath: _fpsCamera
       value: 
@@ -527,6 +546,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3487120574894132073}
     - target: {fileID: 1867968826, guid: 7e64ca821b9ad194a843ae920fe35158, type: 3}
+      propertyPath: _fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c3f972585307e34391ba311a1600c34, type: 3}
+    - target: {fileID: 1867968826, guid: 7e64ca821b9ad194a843ae920fe35158, type: 3}
       propertyPath: _fpsCamera
       value: 
       objectReference: {fileID: 2000000}
@@ -626,6 +649,10 @@ PrefabInstance:
       propertyPath: _ammoSlot
       value: 
       objectReference: {fileID: 3487120574894132073}
+    - target: {fileID: 1867968826, guid: ada2587319194f542957a8c2ae277cb9, type: 3}
+      propertyPath: _fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d5b6d18f172ca1c45b837ed1e5499463, type: 3}
     - target: {fileID: 1867968826, guid: ada2587319194f542957a8c2ae277cb9, type: 3}
       propertyPath: _fpsCamera
       value: 

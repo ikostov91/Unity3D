@@ -20,5 +20,6 @@ public class EnemyAttack : MonoBehaviour
         }
 
         this._target.TakeDamage(this._damage);
+        this._target.GetComponent<DisplayDamage>().ShowDamageCanvas();
     }
 }

@@ -4,22 +4,23 @@ using Constants;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
     [SerializeField] private float _chaseRange = 5f;
     [SerializeField] private float _turnSpeed = 5f;
-
+   
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private float _distanceToTarget = Mathf.Infinity;
     private bool _isPlayerVisible = true;
     private bool _isEnemyProvoked = false;
     private EnemyHealth _health;
+    private Transform _target;
 
     void Start()
     {
         this._navMeshAgent = GetComponent<NavMeshAgent>();
         this._animator = GetComponent<Animator>();
         this._health = GetComponent<EnemyHealth>();
+        this._target = FindObjectOfType<PlayerHealth>().transform;
     }
 
     void Update()
@@ -60,7 +61,7 @@ public class EnemyAI : MonoBehaviour
     {
         this.FaceTarget();
 
-        if (this._distanceToTarget >= this._navMeshAgent.stoppingDistance && this._isPlayerVisible)
+        if (this._distanceToTarget > this._navMeshAgent.stoppingDistance && this._isPlayerVisible)
         {
             this.ChaseTarget();
         }
@@ -92,12 +93,15 @@ public class EnemyAI : MonoBehaviour
 
     private void CheckIfPlayerIsVisible()
     {
-        RaycastHit hit;
-        Vector3 rayDirection = this._target.position - this.transform.position;
-        if (Physics.Raycast(this.transform.position, rayDirection, out hit))
-        {
-            this._isPlayerVisible = hit.transform == this._target;
-        }
+        //RaycastHit hit;
+        //Vector3 rayDirection = this._target.position - this.transform.position;
+        //if (Physics.Raycast(this.transform.position, rayDirection, out hit))
+        //{
+        //    this._isPlayerVisible = hit.transform == this._target;
+        //}
+
+        // Temporary solution because when in enslosed space in Asylum, hit.transform equals to the zombie transform for some reason
+        this._isPlayerVisible = true;
     }
 
     private void OnDrawGizmosSelected()
