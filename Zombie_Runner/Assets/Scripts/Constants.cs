@@ -1,4 +1,4 @@
-﻿namespace Constants
+﻿namespace Assets.Scripts.Constants
 {
     public static class AnimationConstants
     {
@@ -11,6 +11,17 @@
     public static class TagConstants
     {
         public const string Player = "Player";
+    }
+
+    public static class MessageConstants
+    {
+        public const string OnDamageTaken = "OnDamageTaken";
+    }
+
+    public static class LevelConstants
+    {
+        public const string MainMenu = "MainMenu";
+        public const string Asylum = "Asylum";
     }
 }
 

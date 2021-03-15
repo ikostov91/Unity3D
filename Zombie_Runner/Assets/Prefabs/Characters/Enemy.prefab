@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4405716228848092726}
   - component: {fileID: 4405716228848092727}
   - component: {fileID: 1624985426}
-  - component: {fileID: 1624985427}
-  - component: {fileID: 332182786}
   - component: {fileID: 401103923}
-  - component: {fileID: 4005397785407957441}
+  - component: {fileID: 5224840041803774586}
+  - component: {fileID: 1771860786131639819}
+  - component: {fileID: 7801487257381421285}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -115,35 +115,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1624985427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4405716228848092724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a08dd0d451a157a47ad48d1a451a51d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _chaseRange: 10
-  _turnSpeed: 5
---- !u!114 &332182786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4405716228848092724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57348739a0670f24ab838cdee511ccac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _deathSound: {fileID: 8300000, guid: fc1882cb9cb0d474c95537bbdb4c48bd, type: 3}
-  _damageTakenSounds: []
-  _hitPoints: 100
 --- !u!95 &401103923
 Animator:
   serializedVersion: 3
@@ -163,7 +134,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4005397785407957441
+--- !u!114 &5224840041803774586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,10 +143,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 4405716228848092724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d57223093326394086aba6ce200c362, type: 3}
+  m_Script: {fileID: 11500000, guid: 69a6431726b82124493c7c4fedb4381d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
+  _chaseRange: 10
+  _turnSpeed: 5
+--- !u!114 &1771860786131639819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405716228848092724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db91fcff0a193245b4e8658c7de6d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 30
+--- !u!114 &7801487257381421285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405716228848092724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d97a09837263b4cb10e931c29e836e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathSound: {fileID: 8300000, guid: fc1882cb9cb0d474c95537bbdb4c48bd, type: 3}
+  _damageTakenSounds: []
+  _soundsVolume: 1.5
+  _hitPoints: 100
 --- !u!1001 &4717896242910752543
 PrefabInstance:
   m_ObjectHideFlags: 0
