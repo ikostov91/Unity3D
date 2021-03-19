@@ -35,6 +35,7 @@ namespace Assets.Scripts.EnemyScripts
             }
 
             this.FollowPlayerIfInRange();
+            this.MakeSounds();
         }
 
         void FixedUpdate()
@@ -53,6 +54,11 @@ namespace Assets.Scripts.EnemyScripts
             {
                 this._isEnemyProvoked = true;
             }
+        }
+
+        private void MakeSounds()
+        {
+            var state = this._animator.GetBool("Attack");
         }
 
         public void OnDamageTaken()
